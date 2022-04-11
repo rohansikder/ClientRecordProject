@@ -27,13 +27,13 @@ typedef struct node
 void addAtTheStartList(struct node** top);
 void addAtTheEndList(struct node* top);
 void displayList(nodeT* top);
+void displaySingle(nodeT* top, int location);
 int search(nodeT* top, int searchCRN);
 void deleteAtEnd(struct node* top);
 void deleteAtStart(struct node** top);
 void deleteAtLocation(struct node* top, int location);
 int listLength(nodeT* top);
-void outputToFile(struct node* top);
-
+void createReport(struct node* top);
 
 void main()
 {
@@ -46,7 +46,6 @@ void main()
 	int resultDelete;
 	int searchID;
 	int deleteId;
-
 
 	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done But not unique
 	printf("Please enter 2 to Display all client details\n");//Done
@@ -84,7 +83,7 @@ void main()
 
 		else if (choice == 3)
 		{
-			printf("Please enter the Company Resgistration number you wish to search for\n");
+			printf("Please enter the Company Registration number you wish to search for\n");
 			scanf("%d", &searchID);
 
 			resultSearch = search(headPtr, searchID);
@@ -94,6 +93,7 @@ void main()
 			}
 			else {
 				printf("The Company %d is at location %d\n", searchID, resultSearch);
+				displaySingle(headPtr, resultSearch);
 			}
 		}
 
@@ -142,7 +142,7 @@ void main()
 
 		else if (choice == 7)
 		{
-			outputToFile(headPtr);
+			createReport(headPtr);
 		}
 
 		else if (choice == 8)
@@ -177,6 +177,28 @@ void addAtTheEndList(struct node* top)
 	scanf("%d", &newNode->CRN);
 	printf("Please enter Company Name:\n");
 	scanf("%s", newNode->CoName);
+	printf("Please enter Company Country:\n");
+	scanf("%s", newNode->CoCountry);
+	printf("Please enter Year Company was Founded:\n");
+	scanf("%d", &newNode->yearFounded);
+	printf("Please enter Company Email Addres(Must be valid email!):\n");
+	scanf("%s", newNode->email);
+	printf("Please enter Company Contact Name:\n");
+	scanf("%s", newNode->ContactName);
+	printf("Please enter Last Order:\n");
+	scanf("%d", &newNode->LastOrder);
+	printf("Please enter Number Of Employees:\n");
+	scanf("%d", &newNode->NumOfEmployees);
+	printf("Please enter Average Annual Order:\n");
+	scanf("%f", &newNode->AverageAnnualOrder);
+	printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
+	scanf("%d", &newNode->VatReg);
+	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n-Please enter 2 for Less than €10 Million\n-Please enter 3 for Over €10 Million\n");
+	scanf("%d", &newNode->AvgTurnover);
+	printf("How many staff are employed in the Company?:\n-Please enter 1 For Less than 10\n-Please enter 2 for Less than 100\n-Please enter 3 for Over 100\n");
+	scanf("%d", &newNode->StaffNum);
+	printf("Which area of sales is the company?:\n-Please enter 1 For ICT\n-Please enter 2 for Medical Devices\n-Please enter 3 for Other area\n");
+	scanf("%d", &newNode->AreaOfSales);
 
 	while (temp->NEXT != NULL)
 	{
@@ -200,6 +222,28 @@ void addAtTheStartList(struct node** top)
 	scanf("%d", &newNode->CRN);
 	printf("Please enter Company Name:\n");
 	scanf("%s", newNode->CoName);
+	printf("Please enter Company Country:\n");
+	scanf("%s", newNode->CoCountry);
+	printf("Please enter Year Company was Founded:\n");
+	scanf("%d", &newNode->yearFounded);
+	printf("Please enter Company Email Addres(Must be valid email!):\n");
+	scanf("%s", newNode->email);
+	printf("Please enter Company Contact Name:\n");
+	scanf("%s", newNode->ContactName);
+	printf("Please enter Last Order:\n");
+	scanf("%d", &newNode->LastOrder);
+	printf("Please enter Number Of Employees:\n");
+	scanf("%d", &newNode->NumOfEmployees);
+	printf("Please enter Average Annual Order:\n");
+	scanf("%f", &newNode->AverageAnnualOrder);
+	printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
+	scanf("%d", &newNode->VatReg);
+	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n-Please enter 2 for Less than €10 Million\n-Please enter 3 for Over €10 Million\n");
+	scanf("%d", &newNode->AvgTurnover);
+	printf("How many staff are employed in the Company?:\n-Please enter 1 For Less than 10\n-Please enter 2 for Less than 100\n-Please enter 3 for Over 100\n");
+	scanf("%d", &newNode->StaffNum);
+	printf("Which area of sales is the company?:\n-Please enter 1 For ICT\n-Please enter 2 for Medical Devices\n-Please enter 3 for Other area\n");
+	scanf("%d", &newNode->AreaOfSales);
 
 
 	newNode->NEXT = *top;
@@ -233,6 +277,36 @@ void displayList(nodeT* top)
 	}
 }//End of displayLiST
 
+void displaySingle(nodeT* top, int location)
+{
+	struct node* temp = top;
+	struct node* prev;
+	int i;
+
+	for (i = 0; i < location; i++)
+	{
+		prev = temp;
+		temp = temp->NEXT;
+	}
+
+	prev->NEXT = temp->NEXT;
+
+	printf("Company Registration Number(CRN) is: %d\n", temp->CRN);
+	printf("Company Name is %s.\n", temp->CoName);
+	printf("Company's is located in: %s.\n", temp->CoCountry);
+	printf("Year Company was founded in %d.\n", temp->yearFounded);
+	printf("Company Email Address is %s.\n", temp->email);
+	printf("Company Contact Name is %s.\n", temp->ContactName);
+	printf("Company's Last order was %d.\n", temp->LastOrder);
+	printf("Company has %d employees.\n", temp->NumOfEmployees);
+	printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+	printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
+	printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
+	printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
+	printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
+
+}//End of displaySingle
+
 int search(nodeT* top, int searchCRN)
 {
 	struct node* temp = top;
@@ -253,7 +327,7 @@ int search(nodeT* top, int searchCRN)
 	return found;
 }//End of search
 
-void outputToFile(struct node* top)
+void createReport(struct node* top)
 {
 	struct node* temp;
 	FILE* fp;
