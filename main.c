@@ -49,7 +49,7 @@ void main()
 
 	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done But not unique
 	printf("Please enter 2 to Display all client details\n");//Done
-	printf("Please enter 3 to Display client details\n");
+	printf("Please enter 3 to Display client details\n");//Done
 	printf("Please enter 4 to Update a client details\n");
 	printf("Please enter 5 to Delete client\n");//Done
 	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than €1 Million\n\tB. Less than €10 Million\n\tC. Over €10 Million\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
@@ -193,11 +193,11 @@ void addAtTheEndList(struct node* top)
 	scanf("%f", &newNode->AverageAnnualOrder);
 	printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
 	scanf("%d", &newNode->VatReg);
-	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n-Please enter 2 for Less than €10 Million\n-Please enter 3 for Over €10 Million\n");
+	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
 	scanf("%d", &newNode->AvgTurnover);
-	printf("How many staff are employed in the Company?:\n-Please enter 1 For Less than 10\n-Please enter 2 for Less than 100\n-Please enter 3 for Over 100\n");
+	printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 	scanf("%d", &newNode->StaffNum);
-	printf("Which area of sales is the company?:\n-Please enter 1 For ICT\n-Please enter 2 for Medical Devices\n-Please enter 3 for Other area\n");
+	printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
 	scanf("%d", &newNode->AreaOfSales);
 
 	while (temp->NEXT != NULL)
@@ -217,7 +217,6 @@ void addAtTheStartList(struct node** top)
 	struct node* newNode;
 
 	newNode = (struct node*)malloc(sizeof(struct node));
-
 	printf("Please enter Company Registration Number(CRN):\n");
 	scanf("%d", &newNode->CRN);
 	printf("Please enter Company Name:\n");
@@ -238,11 +237,11 @@ void addAtTheStartList(struct node** top)
 	scanf("%f", &newNode->AverageAnnualOrder);
 	printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
 	scanf("%d", &newNode->VatReg);
-	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n-Please enter 2 for Less than €10 Million\n-Please enter 3 for Over €10 Million\n");
+	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
 	scanf("%d", &newNode->AvgTurnover);
-	printf("How many staff are employed in the Company?:\n-Please enter 1 For Less than 10\n-Please enter 2 for Less than 100\n-Please enter 3 for Over 100\n");
+	printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 	scanf("%d", &newNode->StaffNum);
-	printf("Which area of sales is the company?:\n-Please enter 1 For ICT\n-Please enter 2 for Medical Devices\n-Please enter 3 for Other area\n");
+	printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
 	scanf("%d", &newNode->AreaOfSales);
 
 
