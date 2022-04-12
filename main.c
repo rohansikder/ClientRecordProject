@@ -1,6 +1,9 @@
 #include<stdio.h>//Input/Output
 #include<stdlib.h>//Memory Allocation
 #include<string.h>
+#include<conio.h>
+
+#define DEBUG 
 
 typedef struct node
 {
@@ -22,7 +25,6 @@ typedef struct node
 
 }nodeT;
 
-
 //Define Functions
 void addAtTheStartList(struct node** top);
 void addAtTheEndList(struct node* top);
@@ -34,9 +36,11 @@ void deleteAtStart(struct node** top);
 void deleteAtLocation(struct node* top, int location);
 int listLength(nodeT* top);
 void createReport(struct node* top);
+int login();
 
 void main()
 {
+
 	nodeT* headPtr = NULL;
 	nodeT* newNode;
 	nodeT* temp;
@@ -46,7 +50,15 @@ void main()
 	int resultDelete;
 	int searchID;
 	int deleteId;
+	int loginCheck = 0;
+	
+	//Checks if login was correct or not if loginCheck == 1 the Correct
+	do 
+	{
+		loginCheck = login();
 
+	} while(loginCheck == 0);
+	
 	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done But not unique
 	printf("Please enter 2 to Display all client details\n");//Done
 	printf("Please enter 3 to Display client details\n");//Done
@@ -99,7 +111,7 @@ void main()
 
 		else if (choice == 4)
 		{
-
+			
 		}
 
 		else if (choice == 5)
@@ -413,4 +425,86 @@ void deleteAtLocation(struct node* top, int location)
 
 	prev->NEXT = temp->NEXT;
 	free(temp);
+}
+
+int login() 
+{
+	FILE* fptr;
+	char userName[10];
+	char password[10], c;
+	int index = 0;
+
+	char name1[6];
+	char pass1[6];
+
+	char name2[6];
+	char pass2[6];
+
+	char name3[6];
+	char pass3[6];
+
+	int decision;
+
+	printf("Please enter your username(Username should not exceed 6 Charecters):\n");
+	scanf("%s", userName);
+
+
+	printf("Please enter your password(Passwprd should not exceed 6 Charecters):\n");
+
+	// 13 is ASCII value of * character 
+	while ((c = getch()) != 13) {
+		if (index < 0)
+			index = 0;
+		// 8 is ASCII value of BACKSPACE character 
+		if (c == 8) {
+			putch('\b');
+			putch(NULL);
+			putch('\b');
+			index--;
+			continue;
+		}
+		password[index++] = c;
+		putch('*');
+	}
+	password[index] = '\0';
+
+
+	fptr = fopen("USERDETAILS.txt", "r");
+
+	//Checks if file is valid
+	if (fptr == NULL)
+	{
+		printf("Please check if file is vaild!!\n");
+	}
+	else {
+		while (!feof(fptr))
+		{
+			//Grabs info from file
+			fscanf(fptr, "%s\n%s\n%s\n%s\n%s\n%s", name1, pass1, name2, pass2, name3, pass3);
+		}
+		fclose(fptr);
+	}
+
+	//printf("\n%s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
+
+	//Compares if details from file is same as user
+
+	if (((strcmp(userName, name1) == 0) && (strcmp(password, pass1) == 0))) {
+		printf("Correct\n");
+		return 1;
+	}
+	else if (((strcmp(userName, name2) == 0) && (strcmp(password, pass2) == 0)))
+	{
+		printf("Correct\n");
+		return 1;
+	}
+	else if (((strcmp(userName, name3) == 0) && (strcmp(password, pass3) == 0)))
+	{
+		printf("Correct\n");
+		return 1;
+	}else{
+		printf("You have entered the wrong password or username, Please try again\n");
+		return 0;
+	}
+
 }
