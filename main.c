@@ -1,9 +1,11 @@
 #include<stdio.h>//Input/Output
 #include<stdlib.h>//Memory Allocation
 #include<string.h>
-#include<conio.h>
 
-#define DEBUG 
+#define DEBUG 0
+
+//#if DEBUG 
+//#endif
 
 typedef struct node
 {
@@ -67,7 +69,7 @@ void main()
 	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than €1 Million\n\tB. Less than €10 Million\n\tC. Over €10 Million\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
 	printf("Please enter 8 to List all the clients in order of their last average turnover\n");
-	printf("Please enter -1 to exit application\n");
+	printf("Please enter -1 to exit application\n");//Make it so it prints all data to a file so it can be initzliazed on startup
 	printf("\n");
 	scanf("%d", &choice);
 	printf("\n");
@@ -104,7 +106,11 @@ void main()
 				printf("The Company %d does not exist in the list\n", searchID);
 			}
 			else {
-				printf("The Company %d is at location %d\n", searchID, resultSearch);
+
+				#if DEBUG
+					printf("The Company %d is at location %d\n", searchID, resultSearch);
+				#endif
+					
 				displaySingle(headPtr, resultSearch);
 			}
 		}
@@ -161,7 +167,6 @@ void main()
 		{
 
 		}
-
 
 		printf("\nPlease enter 1 to Add client (Note: Company Registeration Number must be unique)\n");
 		printf("Please enter 2 to Display all client details\n");
@@ -485,7 +490,9 @@ int login()
 		fclose(fptr);
 	}
 
-	//printf("\n%s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
+	#if DEBUG 
+		 printf("\n%s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
+	#endif
 
 	//Compares if details from file is same as user
 
@@ -503,7 +510,7 @@ int login()
 		printf("Correct\n");
 		return 1;
 	}else{
-		printf("You have entered the wrong password or username, Please try again\n");
+		printf("\nYou have entered the wrong password or username, Please try again\n");
 		return 0;
 	}
 
