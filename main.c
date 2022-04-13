@@ -37,6 +37,9 @@ void deleteAtEnd(struct node* top);
 void deleteAtStart(struct node** top);
 void deleteAtLocation(struct node* top, int location);
 int listLength(nodeT* top);
+void initilizeStartLinkedList(struct node** top);
+void initilizeEndLinkedList(struct node* top);
+void saveRawData(struct node* top);
 void createReport(struct node* top);
 int login();
 
@@ -61,6 +64,9 @@ void main()
 
 	} while(loginCheck == 0);
 	
+	initilizeStartLinkedList(&headPtr);
+	initilizeEndLinkedList(headPtr);
+
 	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done But not unique
 	printf("Please enter 2 to Display all client details\n");//Done
 	printf("Please enter 3 to Display client details\n");//Done
@@ -88,6 +94,8 @@ void main()
 			{
 				addAtTheEndList(headPtr);
 			}
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		else if (choice == 2)
@@ -113,11 +121,13 @@ void main()
 					
 				displaySingle(headPtr, resultSearch);
 			}
+
 		}
 
 		else if (choice == 4)
 		{
-			
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		else if (choice == 5)
@@ -151,21 +161,28 @@ void main()
 				deleteAtLocation(headPtr, resultDelete);
 			}
 
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
+
 		}
 
 		else if (choice == 6)
 		{
-
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		else if (choice == 7)
 		{
 			createReport(headPtr);
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		else if (choice == 8)
 		{
-
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		printf("\nPlease enter 1 to Add client (Note: Company Registeration Number must be unique)\n");
@@ -210,7 +227,7 @@ void addAtTheEndList(struct node* top)
 	scanf("%f", &newNode->AverageAnnualOrder);
 	printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
 	scanf("%d", &newNode->VatReg);
-	printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
+	printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
 	scanf("%d", &newNode->AvgTurnover);
 	printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 	scanf("%d", &newNode->StaffNum);
@@ -432,6 +449,29 @@ void deleteAtLocation(struct node* top, int location)
 	free(temp);
 }
 
+void saveRawData(struct node* top)
+{
+	struct node* temp;
+	FILE* fp;
+	temp = top;
+
+	fp = fopen("rawData.txt", "w");
+
+	while (temp != NULL)
+	{
+		if (fp != NULL)
+		{
+			fprintf(fp, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", temp->CRN,temp->CoName,temp->CoCountry,temp->yearFounded,temp->email, temp->ContactName,temp->LastOrder,temp->NumOfEmployees,temp->AverageAnnualOrder,temp->VatReg,temp->AvgTurnover,temp->StaffNum,temp->AreaOfSales);
+		}
+		temp = temp->NEXT;
+	}
+
+	if (fp != NULL)
+	{
+		fclose(fp);
+	}
+}
+
 int login() 
 {
 	FILE* fptr;
@@ -514,4 +554,61 @@ int login()
 		return 0;
 	}
 
+}
+
+void initilizeStartLinkedList(struct node** top) {
+
+	struct node* newNode;
+	newNode = (struct node*)malloc(sizeof(struct node));
+
+	FILE* fptr;
+
+	fptr = fopen("rawData.txt", "r");
+
+	//Checks if file is valid
+	if (fptr == NULL)
+	{
+		printf("Please check if file is vaild!!\n");
+	}
+	else {
+		//Grabs info from file
+		fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
+		fclose(fptr);
+	}
+	
+	newNode->NEXT = *top;
+	*top = newNode;
+}
+
+void initilizeEndLinkedList(struct node* top) {
+
+	struct node* temp = top;
+	struct node* newNode;
+	newNode = (struct node*)malloc(sizeof(struct node));
+	FILE* fptr;
+
+	fptr = fopen("rawData.txt", "r");
+
+	//Checks if file is valid
+	if (fptr == NULL)
+	{
+		printf("Please check if file is vaild!!\n");
+	}
+	else {
+		
+		while (!feof(fptr))
+		{
+			//Grabs info from file
+			fscanf(fptr, "\n%d %s %s %d %s %s %d %d %f %d %d %d %d", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
+		}
+		fclose(fptr);
+	}
+
+	while (temp->NEXT != NULL)
+	{
+		temp = temp->NEXT;
+	}
+
+	newNode->NEXT = NULL;
+	temp->NEXT = newNode;
 }
