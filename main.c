@@ -8,6 +8,15 @@
 //#if DEBUG 
 //#endif
 
+
+/*
+	Things To Still Do
+		- Make Email validation E.g must contain an @, a full stop and a .com
+		- Update a client
+		- List clients in order of last turn over
+		- Generate statistics
+*/
+
 typedef struct node
 {
 	int CRN;
@@ -202,6 +211,7 @@ void main()
 
 }//End Of Main
 
+//Add to start of the list
 void addAtTheEndList(struct node* top)
 {
 
@@ -262,6 +272,7 @@ void addAtTheEndList(struct node* top)
 
 }//End of addAtEndList
 
+//Add to end the list
 void addAtTheStartList(struct node** top)
 {
 
@@ -302,6 +313,7 @@ void addAtTheStartList(struct node** top)
 	
 }//End of addAtStartList
 
+//Display entire List 
 void displayList(nodeT* top)
 {
 	struct node* temp;
@@ -328,6 +340,7 @@ void displayList(nodeT* top)
 	}
 }//End of displayLiST
 
+//Display single client from users choice
 void displaySingle(nodeT* top, int location)
 {
 	struct node* temp = top;
@@ -358,6 +371,7 @@ void displaySingle(nodeT* top, int location)
 
 }//End of displaySingle
 
+//Search if CRN exists in database
 int search(nodeT* top, int searchCRN)
 {
 	struct node* temp = top;
@@ -379,6 +393,7 @@ int search(nodeT* top, int searchCRN)
 	return found;
 }//End of search
 
+//Create a report for user
 void createReport(struct node* top)
 {
 	struct node* temp;
@@ -416,6 +431,7 @@ void createReport(struct node* top)
 	printf("A report withh all cliental info has been outputted.\n");
 }
 
+//Gets Length of list
 int listLength(nodeT* top)
 {
 	struct node* temp = top;
@@ -430,6 +446,7 @@ int listLength(nodeT* top)
 	return count;
 }
 
+//Deletes from end of the list
 void deleteAtEnd(struct node* top)
 {
 	struct node* temp = top;
@@ -445,6 +462,7 @@ void deleteAtEnd(struct node* top)
 	free(temp);
 }
 
+//Deletes from start of the list
 void deleteAtStart(struct node** top)
 {
 	struct node* temp = *top;
@@ -454,6 +472,7 @@ void deleteAtStart(struct node** top)
 	free(temp);
 }
 
+//Deletes from anywhere bar start and end of the list
 void deleteAtLocation(struct node* top, int location)
 {
 	struct node* temp = top;
@@ -470,6 +489,7 @@ void deleteAtLocation(struct node* top, int location)
 	free(temp);
 }
 
+//Saves raw data for system to save and retrieve and initilize linked list
 void saveRawData(struct node* top)
 {
 	struct node* temp;
@@ -493,6 +513,7 @@ void saveRawData(struct node* top)
 	}
 }
 
+//Checks for login details from file and cheks with user input
 int login() 
 {
 	FILE* fptr;
@@ -577,6 +598,7 @@ int login()
 
 }
 
+//Initilizes first line of data to linked list
 void initilizeStartLinkedList(struct node** top) {
 
 	struct node* newNode;
@@ -601,6 +623,7 @@ void initilizeStartLinkedList(struct node** top) {
 	*top = newNode;
 }
 
+//Initilizes all data to linked liost bar first line
 void initilizeEndLinkedList(struct node* top) {
 
 	struct node* temp = top;
