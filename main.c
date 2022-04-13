@@ -2,19 +2,19 @@
 #include<stdlib.h>//Memory Allocation
 #include<string.h>
 
+//Rohan Sikder - G00389052
+
 //Change Debug value too 1 to enable Debuging info whhich will be outputted along with program
 #define DEBUG 0
 
-//#if DEBUG 
-//#endif
-
 
 /*
-	Things To Still Do
+	Things To Still Do:
 		- Make Email validation E.g must contain an @, a full stop and a .com
-		- Update a client
 		- List clients in order of last turn over
 		- Generate statistics
+	Bugs:
+		-Adds first client info twice
 */
 
 typedef struct node
@@ -52,6 +52,7 @@ void initilizeEndLinkedList(struct node* top);
 void saveRawData(struct node* top);
 void createReport(struct node* top);
 int login();
+void updateClient(struct node* top);
 
 void main()
 {
@@ -78,10 +79,13 @@ void main()
 	initilizeStartLinkedList(&headPtr);
 	initilizeEndLinkedList(headPtr);
 
+	//Deleteing first item as i read first line of data twice - I dont know how to skip the first line whne im reading it to the end of the list
+	deleteAtStart(&headPtr);
+
 	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done 
 	printf("Please enter 2 to Display all client details\n");//Done
 	printf("Please enter 3 to Display client details\n");//Done
-	printf("Please enter 4 to Update a client details\n");
+	printf("Please enter 4 to Update a client details\n");//Done
 	printf("Please enter 5 to Delete client\n");//Done
 	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than €1 Million\n\tB. Less than €10 Million\n\tC. Over €10 Million\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
@@ -111,7 +115,10 @@ void main()
 
 		else if (choice == 2)
 		{
-				displayList(headPtr);	
+				displayList(headPtr);
+
+				//Saves raw data after each menu as user could change/update details
+				saveRawData(headPtr);
 		}
 
 		else if (choice == 3)
@@ -137,6 +144,7 @@ void main()
 
 		else if (choice == 4)
 		{
+			updateClient(headPtr);
 			//Saves raw data after each menu as user could change/update details
 			saveRawData(headPtr);
 		}
@@ -222,18 +230,21 @@ void addAtTheEndList(struct node* top)
 
 	int checkCRN, checkResult;
 
-	printf("Please enter Company Registration Number(CRN):\n");
+	printf("Please enter Company Registration Number(CRN) to check if it is available:\n");
 	scanf("%d",&checkCRN);
 
 	checkResult = search(temp, checkCRN);
 
 	#if DEBUG 
-		printf("\nThis is check result %d end of list\n", checkResult);
+		printf("\nThis is check result %d end of list-  checkCRN is %d\n", checkResult, checkCRN);
 	#endif
 
 	if (checkResult == -1) {
 		newNode = (struct node*)malloc(sizeof(struct node));
-		checkCRN =  &newNode->CRN;
+		printf("Company Registration Number(CRN) is available!\n");
+
+		printf("Please enter Company Registration Number(CRN) :\n");
+		scanf("%d", &newNode -> CRN);
 		printf("Please enter Company Name:\n");
 		scanf("%s", newNode->CoName);
 		printf("Please enter Company Country:\n");
@@ -615,7 +626,7 @@ void initilizeStartLinkedList(struct node** top) {
 	}
 	else {
 		//Grabs info from file
-		fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
+		fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
 		fclose(fptr);
 	}
 	
@@ -626,9 +637,6 @@ void initilizeStartLinkedList(struct node** top) {
 //Initilizes all data to linked liost bar first line
 void initilizeEndLinkedList(struct node* top) {
 
-	struct node* temp = top;
-	struct node* newNode;
-	newNode = (struct node*)malloc(sizeof(struct node));
 	FILE* fptr;
 
 	fptr = fopen("rawData.txt", "r");
@@ -642,17 +650,71 @@ void initilizeEndLinkedList(struct node* top) {
 		
 		while (!feof(fptr))
 		{
+			struct node* temp = top;
+			struct node* newNode;
+			newNode = (struct node*)malloc(sizeof(struct node));
+
 			//Grabs info from file
-			fscanf(fptr, "\n%d %s %s %d %s %s %d %d %f %d %d %d %d", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
+			fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
+			
+			while (temp->NEXT != NULL)
+			{
+				temp = temp->NEXT;
+			}
+
+			newNode->NEXT = NULL;
+			temp->NEXT = newNode;
 		}
 		fclose(fptr);
 	}
 
-	while (temp->NEXT != NULL)
+
+
+}
+
+//Updates existing client info
+void updateClient(struct node* top) {
+
+	struct node* temp = top;
+	int updateID, resultUpdate;
+
+	printf("Please enter the Company Registration Number of client you would like to update:\n");
+	scanf("%d", &updateID);
+
+	resultUpdate = search(temp, updateID);
+
+	if (temp == NULL)
 	{
-		temp = temp->NEXT;
+		printf("The database is empty\n");
+	}
+	else if (resultUpdate<0 || resultUpdate>(listLength(temp) - 1))
+	{
+		printf("The CRN is not valid\n");
 	}
 
-	newNode->NEXT = NULL;
-	temp->NEXT = newNode;
+	else if (resultUpdate == 0)
+	{
+		deleteAtStart(&temp);
+	}
+
+	else if (resultUpdate == (listLength(temp) - 1))
+	{
+		deleteAtEnd(temp);
+	}
+
+	else
+	{
+		deleteAtLocation(temp, resultUpdate);
+	}
+
+	if (temp == NULL)
+	{
+		addAtTheStartList(&temp);
+	}
+
+	else
+	{
+		addAtTheEndList(temp);
+	}
+
 }
