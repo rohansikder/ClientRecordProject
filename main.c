@@ -7,15 +7,23 @@
 //Change Debug value too 1 to enable Debuging info whhich will be outputted along with program
 #define DEBUG 0
 
+/*
+*	Format Of rawData.txt
+*		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.000000 1 2 3 1
+*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.000000 1 2 1 3
+*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.000000 3 1 2 1
+*		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.000000 2 3 2 3
+*/;
+
 
 /*
-	Things To Still Do:
-		- Make Email validation E.g must contain an @, a full stop and a .com
-		- List clients in order of last turn over
-		- Generate statistics
-	Bugs:
-		-Adds first client info twice
-*/
+*	Things To Still Do:
+*		- Make Email validation E.g must contain an @, a full stop and a .com
+*		- List clients in order of last turn over
+*		- Generate statistics
+*	Bugs:
+*		- None :) so far
+*/;
 
 typedef struct node
 {
@@ -87,7 +95,7 @@ void main()
 	printf("Please enter 3 to Display client details\n");//Done
 	printf("Please enter 4 to Update a client details\n");//Done
 	printf("Please enter 5 to Delete client\n");//Done
-	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than €1 Million\n\tB. Less than €10 Million\n\tC. Over €10 Million\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
+	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
 	printf("Please enter 8 to List all the clients in order of their last average turnover\n");
 	printf("Please enter -1 to exit application\n");
@@ -180,6 +188,8 @@ void main()
 				deleteAtLocation(headPtr, resultDelete);
 			}
 
+			printf("Client (CRN) %d  has been deleted", deleteId);
+
 			//Saves raw data after each menu as user could change/update details
 			saveRawData(headPtr);
 
@@ -209,7 +219,7 @@ void main()
 		printf("Please enter 3 to Display client details\n");
 		printf("Please enter 4 to Update a client details\n");
 		printf("Please enter 5 to Delete client\n");
-		printf("Please enter 6 to Generate statistics (a – c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than €1 Million\n\tB. Less than €10 Million\n\tC. Over €10 Million\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
+		printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
 		printf("Please enter 7 to Print all client details into a report file.\n");
 		printf("Please enter 8 to List all the clients in order of their last average turnover\n");
 		printf("Please enter -1 to exit application\n");
@@ -251,7 +261,7 @@ void addAtTheEndList(struct node* top)
 		scanf("%s", newNode->CoCountry);
 		printf("Please enter Year Company was Founded:\n");
 		scanf("%d", &newNode->yearFounded);
-		printf("Please enter Company Email Addres(Must be valid email!):\n");
+		printf("Please enter Company Email Address(Must be valid email!):\n");
 		scanf("%s", newNode->email);
 		printf("Please enter Company Contact Name:\n");
 		scanf("%s", newNode->ContactName);
@@ -299,7 +309,7 @@ void addAtTheStartList(struct node** top)
 		scanf("%s", newNode->CoCountry);
 		printf("Please enter Year Company was Founded:\n");
 		scanf("%d", &newNode->yearFounded);
-		printf("Please enter Company Email Addres(Must be valid email!):\n");
+		printf("Please enter Company Email Address(Must be valid email!):\n");
 		scanf("%s", newNode->email);
 		printf("Please enter Company Contact Name:\n");
 		scanf("%s", newNode->ContactName);
@@ -590,17 +600,17 @@ int login()
 	//Compares if details from file is same as user
 
 	if (((strcmp(userName, name1) == 0) && (strcmp(password, pass1) == 0))) {
-		printf("Correct\n");
+		printf("\nCorrect\n");
 		return 1;
 	}
 	else if (((strcmp(userName, name2) == 0) && (strcmp(password, pass2) == 0)))
 	{
-		printf("Correct\n");
+		printf("\nCorrect\n");
 		return 1;
 	}
 	else if (((strcmp(userName, name3) == 0) && (strcmp(password, pass3) == 0)))
 	{
-		printf("Correct\n");
+		printf("\nCorrect\n");
 		return 1;
 	}else{
 		printf("\nYou have entered the wrong password or username, Please try again\n");

@@ -1,28 +1,56 @@
 
 Company Registration Number(CRN) is: 1
-Company Name is q.
-Company's is located in: q.
-Year Company was founded in 1.
-Company Email Address is q.
-Company Contact Name is q.
-Company's Last order was 1.
-Company has 1 employees.
-Company's average annual order is 1.000000
+Company Name is irish.ltd.
+Company's is located in: IRE.
+Year Company was founded in 1923.
+Company Email Address is ire@gmail.com.
+Company Contact Name is John.
+Company's Last order was 743.
+Company has 17 employees.
+Company's average annual order is 42341.000000
 Is Company Vat Registered (1 == Yes and 2 == No) : 1
-Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): 1
-Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): 1
+Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): 2
+Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): 3
 Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): 1
 
 Company Registration Number(CRN) is: 2
-Company Name is w.
-Company's is located in: w.
-Year Company was founded in 2.
-Company Email Address is w.
-Company Contact Name is w.
-Company's Last order was 2.
-Company has 2 employees.
-Company's average annual order is 2.000000
-Is Company Vat Registered (1 == Yes and 2 == No) : 2
+Company Name is british.ltd.
+Company's is located in: UK.
+Year Company was founded in 1932.
+Company Email Address is uk@gmail.com.
+Company Contact Name is Sam.
+Company's Last order was 184.
+Company has 23 employees.
+Company's average annual order is 34871.000000
+Is Company Vat Registered (1 == Yes and 2 == No) : 1
 Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): 2
+Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): 1
+Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): 3
+
+Company Registration Number(CRN) is: 3
+Company Name is american.ltd.
+Company's is located in: USA.
+Year Company was founded in 1954.
+Company Email Address is usa@gmail.com.
+Company Contact Name is Todd.
+Company's Last order was 103.
+Company has 32 employees.
+Company's average annual order is 50821.000000
+Is Company Vat Registered (1 == Yes and 2 == No) : 3
+Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): 1
 Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): 2
-Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): 2
+Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): 1
+
+Company Registration Number(CRN) is: 4
+Company Name is australian.ltd.
+Company's is located in: AU.
+Year Company was founded in 1973.
+Company Email Address is au@gmail.com.
+Company Contact Name is Jeff.
+Company's Last order was 132.
+Company has 78 employees.
+Company's average annual order is 92431.000000
+Is Company Vat Registered (1 == Yes and 2 == No) : 2
+Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): 3
+Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): 2
+Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): 3
