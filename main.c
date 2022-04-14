@@ -4,7 +4,7 @@
 
 //Rohan Sikder - G00389052
 
-//Change Debug value too 1 to enable Debuging info whhich will be outputted along with program
+//Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
 
 /*
@@ -20,7 +20,8 @@
 *	Things To Still Do:
 *		- Make Email validation E.g must contain an @, a full stop and a .com
 *		- List clients in order of last turn over
-*		- Generate statistics
+*		- Generate Statistics
+*		- Menu Validation
 *	Bugs:
 *		- None :) so far
 */;
@@ -449,7 +450,7 @@ void createReport(struct node* top)
 		fclose(fp);
 	}
 
-	printf("A report withh all cliental info has been outputted.\n");
+	printf("A report with all cliental info has been outputted.\n");
 }
 
 //Gets Length of list
@@ -582,7 +583,7 @@ int login()
 	//Checks if file is valid
 	if (fptr == NULL)
 	{
-		printf("Please check if file is vaild!!\n");
+		printf("Please check if Login file is vaild!!\n");
 	}
 	else {
 		while (!feof(fptr))
@@ -632,7 +633,7 @@ void initilizeStartLinkedList(struct node** top) {
 	//Checks if file is valid
 	if (fptr == NULL)
 	{
-		printf("Please check if file is vaild!!\n");
+		printf("Please check if rawData file is vaild!! - Data has not been initilized\n");
 	}
 	else {
 		//Grabs info from file
@@ -654,7 +655,7 @@ void initilizeEndLinkedList(struct node* top) {
 	//Checks if file is valid
 	if (fptr == NULL)
 	{
-		printf("Please check if file is vaild!!\n");
+		printf("Please check if rawData file is vaild!! - Data has not been initilized\n");
 	}
 	else {
 		
