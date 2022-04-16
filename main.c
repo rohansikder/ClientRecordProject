@@ -3,6 +3,7 @@
 #include<string.h>
 
 //Rohan Sikder - G00389052
+//Workspace - Visual Studio 2022
 
 //Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
@@ -241,6 +242,8 @@ void addAtTheEndList(struct node* top)
 
 	int checkCRN, checkResult;
 
+	int checkVat = 0, checkTurnover = 0, checkStaff = 0 , checkSales = 0;
+
 	printf("Please enter Company Registration Number(CRN) to check if it is available:\n");
 	scanf("%d",&checkCRN);
 
@@ -273,13 +276,58 @@ void addAtTheEndList(struct node* top)
 		printf("Please enter Average Annual Order:\n");
 		scanf("%f", &newNode->AverageAnnualOrder);
 		printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
-		scanf("%d", &newNode->VatReg);
+		scanf("%d", &checkVat);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
+			scanf("%d", &checkVat);
+
+		} while (checkVat != 1 && checkVat != 2);
+
+		newNode->VatReg = checkVat;
+
 		printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
-		scanf("%d", &newNode->AvgTurnover);
+		scanf("%d", &checkTurnover);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
+			scanf("%d", &checkTurnover);
+
+		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
+
+		newNode->AvgTurnover = checkTurnover;
+
 		printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 		scanf("%d", &newNode->StaffNum);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			scanf("%d", &checkStaff);
+
+		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
+
+		newNode->StaffNum = checkStaff;
+
 		printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
-		scanf("%d", &newNode->AreaOfSales);
+		scanf("%d", &checkSales);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			scanf("%d", &checkSales);
+
+		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
+
+		newNode->AreaOfSales = checkSales;
+
+
 		while (temp->NEXT != NULL)
 		{
 			temp = temp->NEXT;
@@ -302,7 +350,9 @@ void addAtTheStartList(struct node** top)
 
 		newNode = (struct node*)malloc(sizeof(struct node));
 
-		printf("Please enter Company Registration Number(CRN):\n");
+		int checkVat = 0, checkTurnover = 0, checkStaff = 0, checkSales = 0;
+
+		printf("Please enter Company Registration Number(CRN) :\n");
 		scanf("%d", &newNode->CRN);
 		printf("Please enter Company Name:\n");
 		scanf("%s", newNode->CoName);
@@ -321,13 +371,56 @@ void addAtTheStartList(struct node** top)
 		printf("Please enter Average Annual Order:\n");
 		scanf("%f", &newNode->AverageAnnualOrder);
 		printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
-		scanf("%d", &newNode->VatReg);
-		printf("What is the Company's Average Turnover?:\n-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
-		scanf("%d", &newNode->AvgTurnover);
+		scanf("%d", &checkVat);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
+			scanf("%d", &checkVat);
+
+		} while (checkVat != 1 && checkVat != 2);
+
+		newNode->VatReg = checkVat;
+
+		printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
+		scanf("%d", &checkTurnover);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
+			scanf("%d", &checkTurnover);
+
+		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
+
+		newNode->AvgTurnover = checkTurnover;
+
 		printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 		scanf("%d", &newNode->StaffNum);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			scanf("%d", &checkStaff);
+
+		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
+
+		newNode->StaffNum = checkStaff;
+
 		printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
-		scanf("%d", &newNode->AreaOfSales);
+		scanf("%d", &checkSales);
+
+		do
+		{
+			printf("Please enter valid Input!\n");
+			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			scanf("%d", &checkSales);
+
+		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
+
+		newNode->AreaOfSales = checkSales;
 
 
 		newNode->NEXT = *top;
