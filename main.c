@@ -10,10 +10,10 @@
 
 /*
 *	Format Of rawData.txt
-*		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.000000 1 2 3 1
-*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.000000 1 2 1 3
-*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.000000 3 1 2 1
-*		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.000000 2 3 2 3
+*		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.00 1 2 3 1
+*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.00 1 2 1 3
+*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.00 3 1 2 1
+*		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.00 2 3 2 3
 */;
 
 
@@ -22,7 +22,6 @@
 *		- Make Email validation E.g must contain an @, a full stop and a .com
 *		- List clients in order of last turn over
 *		- Generate Statistics
-*		- Menu Validation
 *	Bugs:
 *		- None :) so far
 */;
@@ -275,53 +274,56 @@ void addAtTheEndList(struct node* top)
 		scanf("%d", &newNode->NumOfEmployees);
 		printf("Please enter Average Annual Order:\n");
 		scanf("%f", &newNode->AverageAnnualOrder);
-		printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
-		scanf("%d", &checkVat);
-
+		
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
 			scanf("%d", &checkVat);
+			if (checkVat != 1 && checkVat != 2)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkVat != 1 && checkVat != 2);
 
 		newNode->VatReg = checkVat;
 
-		printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
-		scanf("%d", &checkTurnover);
-
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
 			scanf("%d", &checkTurnover);
+			if (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
 
 		newNode->AvgTurnover = checkTurnover;
 
-		printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
-		scanf("%d", &newNode->StaffNum);
-
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 			scanf("%d", &checkStaff);
+			if (checkStaff != 1 && checkStaff != 2 && checkStaff != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
 
 		newNode->StaffNum = checkStaff;
 
-		printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
-		scanf("%d", &checkSales);
 
 		do
 		{
-			printf("Please enter valid Input!\n");
-			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
 			scanf("%d", &checkSales);
+
+			if (checkSales != 1 && checkSales != 2 && checkSales != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
 
@@ -370,53 +372,56 @@ void addAtTheStartList(struct node** top)
 		scanf("%d", &newNode->NumOfEmployees);
 		printf("Please enter Average Annual Order:\n");
 		scanf("%f", &newNode->AverageAnnualOrder);
-		printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
-		scanf("%d", &checkVat);
 
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
 			scanf("%d", &checkVat);
+			if (checkVat != 1 && checkVat != 2)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkVat != 1 && checkVat != 2);
 
 		newNode->VatReg = checkVat;
 
-		printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
-		scanf("%d", &checkTurnover);
-
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
 			scanf("%d", &checkTurnover);
+			if (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
 
 		newNode->AvgTurnover = checkTurnover;
 
-		printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
-		scanf("%d", &newNode->StaffNum);
-
 		do
 		{
-			printf("Please enter valid Input!\n");
 			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
 			scanf("%d", &checkStaff);
+			if (checkStaff != 1 && checkStaff != 2 && checkStaff != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
 
 		newNode->StaffNum = checkStaff;
 
-		printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
-		scanf("%d", &checkSales);
 
 		do
 		{
-			printf("Please enter valid Input!\n");
-			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+			printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
 			scanf("%d", &checkSales);
+
+			if (checkSales != 1 && checkSales != 2 && checkSales != 3)
+			{
+				printf("Please enter valid Input!\n");
+			}
 
 		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
 
@@ -617,7 +622,7 @@ void saveRawData(struct node* top)
 	{
 		if (fp != NULL)
 		{
-			fprintf(fp, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", temp->CRN,temp->CoName,temp->CoCountry,temp->yearFounded,temp->email, temp->ContactName,temp->LastOrder,temp->NumOfEmployees,temp->AverageAnnualOrder,temp->VatReg,temp->AvgTurnover,temp->StaffNum,temp->AreaOfSales);
+			fprintf(fp, "%d %s %s %d %s %s %d %d %.2f %d %d %d %d\n", temp->CRN,temp->CoName,temp->CoCountry,temp->yearFounded,temp->email, temp->ContactName,temp->LastOrder,temp->NumOfEmployees,temp->AverageAnnualOrder,temp->VatReg,temp->AvgTurnover,temp->StaffNum,temp->AreaOfSales);
 		}
 		temp = temp->NEXT;
 	}
@@ -820,5 +825,7 @@ void updateClient(struct node* top) {
 	{
 		addAtTheEndList(temp);
 	}
+
+	printf("Client has been updated!\n");
 
 }
