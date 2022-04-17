@@ -7,20 +7,18 @@
 
 //Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
-
+ 
 /*
 *	Format Of rawData.txt
-*		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.00 1 2 3 1
-*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.00 1 2 1 3
-*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.00 3 1 2 1
+*		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.00 1 3 3 1
+*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.00 1 3 1 1
+*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.00 3 2 2 3
 *		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.00 2 3 2 3
 */;
-
 
 /*
 *	Things To Still Do:
 *		- Make Email validation E.g must contain an @, a full stop and a .com
-*		- List clients in order of last turn over
 *		- Generate Statistics
 *	Bugs:
 *		- None :) so far
@@ -46,6 +44,7 @@ typedef struct node
 
 }nodeT;
 
+
 //Define Functions
 void addAtTheStartList(struct node** top);
 void addAtTheEndList(struct node* top);
@@ -62,6 +61,12 @@ void saveRawData(struct node* top);
 void createReport(struct node* top);
 int login();
 void updateClient(struct node* top);
+void displayOrder1(struct node* top);
+void displayOrder2(struct node* top);
+void displayOrder3(struct node* top);
+
+//Trying To implement Bubble Sort - could not make it work
+void bubbleSortList(struct node* top);
 
 void main()
 {
@@ -98,7 +103,7 @@ void main()
 	printf("Please enter 5 to Delete client\n");//Done
 	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
-	printf("Please enter 8 to List all the clients in order of their last average turnover\n");
+	printf("Please enter 8 to List all the clients in order of their last average turnover\n");//Done
 	printf("Please enter -1 to exit application\n");
 	printf("\n");
 	scanf("%d", &choice);
@@ -211,8 +216,11 @@ void main()
 
 		else if (choice == 8)
 		{
-			//Saves raw data after each menu as user could change/update details
-			saveRawData(headPtr);
+
+			displayOrder1(headPtr);
+			displayOrder2(headPtr);
+			displayOrder3(headPtr);
+
 		}
 
 		printf("\nPlease enter 1 to Add client (Note: Company Registeration Number must be unique)\n");
@@ -656,7 +664,7 @@ int login()
 	scanf("%s", userName);
 
 
-	printf("Please enter your password(Passwprd should not exceed 6 Charecters):\n");
+	printf("Please enter your password(Password should not exceed 6 Charecters):\n");
 
 	// 13 is ASCII value of * character 
 	while ((c = getch()) != 13) {
@@ -828,4 +836,156 @@ void updateClient(struct node* top) {
 
 	printf("Client has been updated!\n");
 
+}
+
+//Display clients in AverageTurnOver
+void displayOrder1(struct node* top) {
+	struct node* temp;
+
+	temp = top;
+
+	while (temp != NULL)
+	{
+		if(temp->AvgTurnover == 1){
+		printf("\nCompany Registration Number(CRN) is: %d\n", temp->CRN);
+		printf("Company Name is %s.\n", temp->CoName);
+		printf("Company's is located in: %s.\n", temp->CoCountry);
+		printf("Year Company was founded in %d.\n", temp->yearFounded);
+		printf("Company Email Address is %s.\n", temp->email);
+		printf("Company Contact Name is %s.\n", temp->ContactName);
+		printf("Company's Last order was %d.\n", temp->LastOrder);
+		printf("Company has %d employees.\n", temp->NumOfEmployees);
+		printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+		printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
+		printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
+		printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
+		printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
+		}
+		
+		temp = temp->NEXT;
+	}
+
+}
+void displayOrder2(struct node* top) {
+	struct node* temp;
+
+	temp = top;
+
+	while (temp != NULL)
+	{
+		if (temp->AvgTurnover == 2) {
+			printf("\nCompany Registration Number(CRN) is: %d\n", temp->CRN);
+			printf("Company Name is %s.\n", temp->CoName);
+			printf("Company's is located in: %s.\n", temp->CoCountry);
+			printf("Year Company was founded in %d.\n", temp->yearFounded);
+			printf("Company Email Address is %s.\n", temp->email);
+			printf("Company Contact Name is %s.\n", temp->ContactName);
+			printf("Company's Last order was %d.\n", temp->LastOrder);
+			printf("Company has %d employees.\n", temp->NumOfEmployees);
+			printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+			printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
+			printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
+			printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
+			printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
+		}
+
+		temp = temp->NEXT;
+	}
+
+}
+void displayOrder3(struct node* top) {
+	struct node* temp;
+
+	temp = top;
+
+	while (temp != NULL)
+	{
+		if (temp->AvgTurnover == 3) {
+			printf("\nCompany Registration Number(CRN) is: %d\n", temp->CRN);
+			printf("Company Name is %s.\n", temp->CoName);
+			printf("Company's is located in: %s.\n", temp->CoCountry);
+			printf("Year Company was founded in %d.\n", temp->yearFounded);
+			printf("Company Email Address is %s.\n", temp->email);
+			printf("Company Contact Name is %s.\n", temp->ContactName);
+			printf("Company's Last order was %d.\n", temp->LastOrder);
+			printf("Company has %d employees.\n", temp->NumOfEmployees);
+			printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+			printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
+			printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
+			printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
+			printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
+		}
+
+		temp = temp->NEXT;
+	}
+
+}
+
+//Trying To implement Bubble Sort - could not make it work
+void bubbleSortList(struct node* top) {
+	//Node current will point to head  
+	struct node* current = top;
+	struct node* index = NULL;
+	int loc;
+	
+	if (top == NULL) {
+		return;
+	}
+	else {
+		while (current != NULL) {
+			//Node index will point to node next to current  
+			index = current->NEXT;
+
+			while (index != NULL) {
+				//If current node's data is greater than index's node data, swap the data between them  
+				if (current->AvgTurnover > index->AvgTurnover) {
+					/*loc = current->CRN;
+					loc = current->CoName;
+					loc = current->CoCountry;
+					loc = current->yearFounded;
+					loc = current->email;
+					loc = current->ContactName;
+					loc = current->LastOrder;
+					loc = current->NumOfEmployees;
+					loc = current->AverageAnnualOrder;
+					loc = current->VatReg;
+					loc = current->StaffNum;
+					loc = current->AreaOfSales;*/
+					loc = current->AvgTurnover;
+				
+					/*current->CRN = index->CRN;
+					current->CoName = index->CoName;
+					current->CoCountry = index->CoCountry;
+					current->yearFounded = index->yearFounded;
+					current->email = index->email;
+					current->ContactName = index->ContactName;
+					current->LastOrder = index->LastOrder;
+					current->NumOfEmployees = index->NumOfEmployees;
+					current->AverageAnnualOrder = index->AverageAnnualOrder;
+					current->VatReg = index->VatReg;
+					current->StaffNum = index->StaffNum;
+					current->AreaOfSales = index->AreaOfSales;*/
+					current->AvgTurnover = index->AvgTurnover;
+
+					/*index->CRN = loc;
+					index->CoName = loc;
+					index->CoCountry = loc;
+					index->yearFounded = loc;
+					index->email = loc;
+					index->ContactName = loc;
+					index->LastOrder = loc;
+					index->NumOfEmployees = loc;
+					index->AverageAnnualOrder = loc;
+					index->VatReg = loc;
+					index->StaffNum = loc;
+					index->AreaOfSales = loc;*/
+					index->AvgTurnover = loc;
+	
+				}
+				index = index->NEXT;
+			}
+
+			current = current->NEXT;
+		}
+	}
 }
