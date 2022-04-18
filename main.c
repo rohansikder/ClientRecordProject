@@ -4,6 +4,7 @@
 
 //Rohan Sikder - G00389052
 //Workspace - Visual Studio 2022
+//GitHub -  https://github.com/rohansikder/ClientRecordProject.git
 
 //Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
@@ -16,12 +17,6 @@
 *		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.00 2 3 2 3
 */;
 
-/*
-*	Things To Still Do:
-*		- Make Email validation E.g must contain an @, a full stop and a .com
-*	Bugs:
-*		- None :) so far
-*/;
 
 typedef struct node
 {
@@ -45,6 +40,7 @@ typedef struct node
 
 
 //Define Functions
+int login();
 void addAtTheStartList(struct node** top);
 void addAtTheEndList(struct node* top);
 void displayList(nodeT* top);
@@ -59,7 +55,6 @@ void initilizeEndLinkedList(struct node* top);
 void saveRawData(struct node* top);
 void createReport(struct node* top);
 void saveStats(struct node* top, int choice);
-int login();
 void updateClient(struct node* top);
 void displayOrder1(struct node* top);
 void displayOrder2(struct node* top);
@@ -70,7 +65,6 @@ void bubbleSortList(struct node* top);
 
 void main()
 {
-
 	nodeT* headPtr = NULL;
 	nodeT* newNode;
 	nodeT* temp;
@@ -102,7 +96,7 @@ void main()
 	printf("Please enter 3 to Display client details\n");//Done
 	printf("Please enter 4 to Update a client details\n");//Done
 	printf("Please enter 5 to Delete client\n");//Done
-	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in 1 - 2\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\t1. Area of Company Sales\n\t2. Number of Employees\n");
+	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in 1 - 2\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\t1. Area of Company Sales\n\t2. Number of Employees\n");//Done
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
 	printf("Please enter 8 to List all the clients in order of their last average turnover\n");//Done
 	printf("Please enter -1 to exit application\n");
@@ -256,6 +250,8 @@ void addAtTheEndList(struct node* top)
 	int checkCRN, checkResult;
 
 	int checkVat = 0, checkTurnover = 0, checkStaff = 0 , checkSales = 0;
+	char checkEmail[30];
+	char validationEmail;
 
 	printf("Please enter Company Registration Number(CRN) to check if it is available:\n");
 	scanf("%d",&checkCRN);
@@ -278,8 +274,22 @@ void addAtTheEndList(struct node* top)
 		scanf("%s", newNode->CoCountry);
 		printf("Please enter Year Company was Founded:\n");
 		scanf("%d", &newNode->yearFounded);
+
+		do {
+
 		printf("Please enter Company Email Address(Must be valid email!):\n");
-		scanf("%s", newNode->email);
+		scanf("%s", checkEmail);
+
+		validationEmail = strstr(checkEmail, "@", ".");
+
+		if (validationEmail == NULL) {
+			printf("Please enter in valid email!\n");
+		}
+
+		} while (validationEmail == NULL);
+
+		strcpy(newNode->email,checkEmail);
+
 		printf("Please enter Company Contact Name:\n");
 		scanf("%s", newNode->ContactName);
 		printf("Please enter Last Order:\n");
@@ -367,6 +377,8 @@ void addAtTheStartList(struct node** top)
 		newNode = (struct node*)malloc(sizeof(struct node));
 
 		int checkVat = 0, checkTurnover = 0, checkStaff = 0, checkSales = 0;
+		char checkEmail[30];
+		char validationEmail;
 
 		printf("Please enter Company Registration Number(CRN) :\n");
 		scanf("%d", &newNode->CRN);
@@ -376,8 +388,24 @@ void addAtTheStartList(struct node** top)
 		scanf("%s", newNode->CoCountry);
 		printf("Please enter Year Company was Founded:\n");
 		scanf("%d", &newNode->yearFounded);
-		printf("Please enter Company Email Address(Must be valid email!):\n");
-		scanf("%s", newNode->email);
+
+		//Email validation
+		do {
+
+			printf("Please enter Company Email Address(Must be valid email!):\n");
+			scanf("%s", checkEmail);
+
+			validationEmail = strstr(checkEmail, "@", ".");
+
+			if (validationEmail == NULL) {
+				printf("Please enter in valid email!\n");
+			}
+
+		} while (validationEmail == NULL);
+
+		strcpy(newNode->email, checkEmail);
+
+
 		printf("Please enter Company Contact Name:\n");
 		scanf("%s", newNode->ContactName);
 		printf("Please enter Last Order:\n");
