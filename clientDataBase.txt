@@ -1,13 +1,13 @@
 
-Less than 10 staff:
-	Less than 1 million Euro: 0
-	Less than 10 million Euro: 1
-	Over 10 million Euro: 0
-Less than 100 staff:
+ICT:
 	Less than 1 million Euro: 0
 	Less than 10 million Euro: 1
 	Over 10 million Euro: 1
-Over 100 staff:
+Medical Devices:
+	Less than 1 million Euro: 0
+	Less than 10 million Euro: 0
+	Over 10 million Euro: 0
+Other:
 	Less than 1 million Euro: 0
 	Less than 10 million Euro: 1
 	Over 10 million Euro: 1
