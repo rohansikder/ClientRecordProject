@@ -11,15 +11,14 @@
 /*
 *	Format Of rawData.txt
 *		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.00 1 3 3 1
-*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.00 1 3 1 1
-*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.00 3 2 2 3
+*		2 british.ltd UK 1932 uk@gmail.com Sam 184 23 34871.00 2 2 1 1
+*		3 american.ltd USA 1954 usa@gmail.com Todd 103 32 50821.00 1 2 2 3
 *		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.00 2 3 2 3
 */;
 
 /*
 *	Things To Still Do:
 *		- Make Email validation E.g must contain an @, a full stop and a .com
-*		- Generate Statistics
 *	Bugs:
 *		- None :) so far
 */;
@@ -59,6 +58,7 @@ void initilizeStartLinkedList(struct node** top);
 void initilizeEndLinkedList(struct node* top);
 void saveRawData(struct node* top);
 void createReport(struct node* top);
+void saveStats(struct node* top, int choice);
 int login();
 void updateClient(struct node* top);
 void displayOrder1(struct node* top);
@@ -81,6 +81,7 @@ void main()
 	int searchID;
 	int deleteId;
 	int loginCheck = 0;
+	int optionSixChoice;
 	
 	//Checks if login was correct or not if loginCheck == 1 the Correct
 	do 
@@ -101,7 +102,7 @@ void main()
 	printf("Please enter 3 to Display client details\n");//Done
 	printf("Please enter 4 to Update a client details\n");//Done
 	printf("Please enter 5 to Delete client\n");//Done
-	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
+	printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in 1 - 2\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\t1. Area of Company Sales\n\t2. Number of Employees\n");
 	printf("Please enter 7 to Print all client details into a report file.\n");//Done
 	printf("Please enter 8 to List all the clients in order of their last average turnover\n");//Done
 	printf("Please enter -1 to exit application\n");
@@ -203,6 +204,11 @@ void main()
 
 		else if (choice == 6)
 		{
+			printf("Choose you critera which you want to geneate statistics: 1. Area of Company Sales or 2. Number of Employees\n");
+			scanf("%d", &optionSixChoice);
+
+			saveStats(headPtr, optionSixChoice);
+
 			//Saves raw data after each menu as user could change/update details
 			saveRawData(headPtr);
 		}
@@ -228,7 +234,7 @@ void main()
 		printf("Please enter 3 to Display client details\n");
 		printf("Please enter 4 to Update a client details\n");
 		printf("Please enter 5 to Delete client\n");
-		printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in I - II\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\tI. Area of Company Sales\n\tII. Number of Employees\n");
+		printf("Please enter 6 to Generate statistics (a to c) based on the user selecting one of the criteria listed in 1 - 2\n\tA. Less than 1 Million euro\n\tB. Less than 10 Million euro\n\tC. Over 10 Million euro\n\t1. Area of Company Sales\n\t2. Number of Employees\n");
 		printf("Please enter 7 to Print all client details into a report file.\n");
 		printf("Please enter 8 to List all the clients in order of their last average turnover\n");
 		printf("Please enter -1 to exit application\n");
@@ -528,7 +534,7 @@ void createReport(struct node* top)
 	FILE* fp;
 	temp = top;
 
-	fp = fopen("clientDataBase.txt", "w");
+	fp = fopen("clientDataBase.txt", "a");
 
 	while (temp != NULL)
 	{
@@ -918,6 +924,224 @@ void displayOrder3(struct node* top) {
 
 		temp = temp->NEXT;
 	}
+
+}
+
+//Generating and saving statistics
+void saveStats(struct node* top, int choice) {
+
+	//Sales
+	int lessThen1CountSalesIct = 0;
+	int lessThen10CountSalesIct = 0;
+	int over10CountSalesIct = 0;
+
+	int lessThen1CountSalesMed = 0;
+	int lessThen10CountSalesMed = 0;
+	int over10CountSalesMed = 0;
+
+	int lessThen1CountSalesOther = 0;
+	int lessThen10CountSalesOther = 0;
+	int over10CountSalesOther = 0;
+
+	//Staff
+	int lessThen1CountStaff1 = 0;
+	int lessThen10CountStaff1 = 0;
+	int over10CountSalesStaff1 = 0;
+
+	int lessThen1CountStaffLess100 = 0;
+	int lessThen10CountStaffLess100 = 0;
+	int over10CountSalesStaffLess100 = 0;
+
+	int lessThen1CountStaffOver100 = 0;
+	int lessThen10CountStaffOver100 = 0;
+	int over10CountSalesStaffOver100 = 0;
+
+	FILE* fp;
+	fp = fopen("clientDataBase.txt", "a");
+
+	if (choice == 1) {
+		struct node* temp;
+
+		temp = top;
+
+		while (temp != NULL)
+		{
+
+			if (temp->AreaOfSales == 1) {
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountSalesIct++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountSalesIct++;
+				}
+				else if (temp->AvgTurnover == 3) {
+					over10CountSalesIct++;
+				}
+			}//end of 1
+			else if (temp->AreaOfSales == 2) {
+					if (temp->AvgTurnover == 1) {
+						lessThen1CountSalesMed++;
+					}
+					else if (temp->AvgTurnover == 2) {
+						lessThen10CountSalesMed++;
+					}
+					else if (temp->AvgTurnover == 3) {
+						over10CountSalesMed++;
+					}
+			}//end of 2
+			else if (temp->AreaOfSales == 3) {
+					if (temp->AvgTurnover == 1) {
+						lessThen1CountSalesOther++;
+					}
+					else if (temp->AvgTurnover == 2) {
+						lessThen10CountSalesOther++;
+					}
+					else if (temp->AvgTurnover == 3) {
+						over10CountSalesOther++;
+					}
+			}//end of 3
+
+			temp = temp->NEXT;
+		}//end of while
+
+		printf("ICT:\n");
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountSalesIct);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountSalesIct);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesIct);
+
+		printf("Medical Devices:\n");
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountSalesMed);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountSalesMed);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesMed);
+
+		printf("Other:\n");
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountSalesOther);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountSalesOther);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesOther);
+
+		if (fp != NULL)
+		{
+			fprintf(fp, "\nICT:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountSalesIct);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountSalesIct);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesIct);
+
+			fprintf(fp, "Medical Devices:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountSalesMed);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountSalesMed);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesMed);
+
+			fprintf(fp, "Other:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountSalesOther);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountSalesOther);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesOther);
+		}
+
+		if (fp != NULL)
+		{
+			fclose(fp);
+		}
+
+	}//End of if choice 1
+
+	if (choice == 2) {
+		struct node* temp;
+
+		temp = top;
+
+		while (temp != NULL)
+		{
+
+			if (temp->StaffNum == 1) {
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountStaff1++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountStaff1++;
+				}
+				else if (temp->AvgTurnover == 3) {
+					over10CountSalesStaff1++;
+				}
+			}//end of 1
+			else if (temp->StaffNum == 2) {
+
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountStaffLess100++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountStaffLess100++;
+				}
+				else if (temp->AvgTurnover == 3) {
+					over10CountSalesStaffLess100++;
+				}
+
+			}//end of 2
+			else if (temp->StaffNum == 3) {
+
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountStaffOver100++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountStaffOver100++;
+				}
+				else if (temp->AvgTurnover = 3) {
+					over10CountSalesStaffOver100++;
+				}
+
+			}//end of 3
+
+			temp = temp->NEXT;
+		}//end of while
+
+		printf("Less than 10 staff:\n");
+			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
+			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
+			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
+
+		printf("Less than 100 staff:\n");
+			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+
+		printf("Over 100 staff:\n");
+			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+
+			if (fp != NULL)
+			{				
+				fprintf(fp, "\nLess than 10 staff:\n");
+				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
+				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
+				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
+
+				fprintf(fp, "Less than 100 staff:\n");
+				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+
+				fprintf(fp, "Over 100 staff:\n");
+				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+			}
+
+			if (fp != NULL)
+			{
+				fclose(fp);
+			}
+
+	}//End of if choice 1
+
+
+	printf("This information has also been outputed to clientDataBase text file.\n");
+
+	if (choice != 1 && choice != 2) {
+		printf("Please enter valid criteria!");
+	}
+
+
+		
 
 }
 
