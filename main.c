@@ -1,3 +1,6 @@
+//To disable depricationn warnings uncomment line below
+//#define _CRT_SECURE_NO_WARNINGS 
+
 #include<stdio.h>//Input/Output
 #include<stdlib.h>//Memory Allocation
 #include<string.h>
@@ -5,6 +8,8 @@
 //Rohan Sikder - G00389052
 //Workspace - Visual Studio 2022
 //GitHub -  https://github.com/rohansikder/ClientRecordProject.git
+//Demo Link - 
+
 
 //Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
@@ -17,6 +22,13 @@
 *		4 australian.ltd AU 1973 au@gmail.com Jeff 132 78 92431.00 2 3 2 3
 */;
 
+/*
+*	Things To Still Do:
+*		Everthing has been completed.
+*	Bugs:
+*		Fully Tested 
+*		- None :)
+*/;
 
 typedef struct node
 {
@@ -109,6 +121,7 @@ void main()
 	{
 		if (choice == 1)
 		{
+			
 			if (headPtr == NULL)
 			{
 				addAtTheStartList(&headPtr);
@@ -143,7 +156,7 @@ void main()
 			else {
 
 				#if DEBUG
-					printf("The Company %d is at location %d\n", searchID, resultSearch);
+					printf("DEBUG - The Company %d is at location %d\n", searchID, resultSearch);
 				#endif
 					
 				displaySingle(headPtr, resultSearch);
@@ -492,7 +505,7 @@ void displayList(nodeT* top)
 		printf("Company Contact Name is %s.\n", temp->ContactName);
 		printf("Company's Last order was %d.\n", temp->LastOrder);
 		printf("Company has %d employees.\n", temp->NumOfEmployees);
-		printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+		printf("Company's average annual order is %.2f\n", temp->AverageAnnualOrder);
 		printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
 		printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
 		printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
@@ -735,7 +748,7 @@ int login()
 	}
 
 	#if DEBUG 
-		 printf("\n%s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
+		 printf("\nDEBUG - %s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
 	#endif
 
 	//Compares if details from file is same as user
@@ -1173,7 +1186,7 @@ void saveStats(struct node* top, int choice) {
 
 }
 
-//Trying To implement Bubble Sort - could not make it work
+//Tried To implement Bubble Sort - could not make it work
 void bubbleSortList(struct node* top) {
 	//Node current will point to head  
 	struct node* current = top;
