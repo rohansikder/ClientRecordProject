@@ -1,5 +1,5 @@
 //To disable depricationn warnings uncomment line below
-//#define _CRT_SECURE_NO_WARNINGS 
+//#define _CRT_SECURE_NO_WARNINGS
 
 #include<stdio.h>//Input/Output
 #include<stdlib.h>//Memory Allocation
@@ -11,11 +11,9 @@
 //Demo Link - https://web.microsoftstream.com/video/608764f3-6b2f-4a65-8edb-52d8a63ac12e
 //Backup Demo Link - https://www.loom.com/share/f50ef76ca5244e52b8ec8410d542583b
 
-
-
 //Change Debug value too 1 to enable Debuging info which will be outputted along with program
 #define DEBUG 0
- 
+
 /*
 *	Format Of rawData.txt
 *		1 irish.ltd IRE 1923 ire@gmail.com John 743 17 42341.00 1 3 3 1
@@ -28,7 +26,7 @@
 *	Things To Still Do:
 *		Everthing has been completed.
 *	Bugs:
-*		Fully Tested 
+*		Fully Tested
 *		- None :)
 */;
 
@@ -49,9 +47,7 @@ typedef struct node
 	int AreaOfSales;
 
 	struct node* NEXT;
-
 }nodeT;
-
 
 //Define Functions
 int login();
@@ -90,14 +86,13 @@ void main()
 	int deleteId;
 	int loginCheck = 0;
 	int optionSixChoice;
-	
+
 	//Checks if login was correct or not if loginCheck == 1 the Correct
-	do 
+	do
 	{
 		loginCheck = login();
+	} while (loginCheck == 0);
 
-	} while(loginCheck == 0);
-	
 	//Intilizaing LinkedLists
 	initilizeStartLinkedList(&headPtr);
 	initilizeEndLinkedList(headPtr);
@@ -105,7 +100,7 @@ void main()
 	//Deleteing first item as i read first line of data twice - I dont know how to skip the first line whne im reading it to the end of the list
 	deleteAtStart(&headPtr);
 
-	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done 
+	printf("Please enter 1 to Add client (Note: Company Registeration Number must be unique)\n");//Done
 	printf("Please enter 2 to Display all client details\n");//Done
 	printf("Please enter 3 to Display client details\n");//Done
 	printf("Please enter 4 to Update a client details\n");//Done
@@ -118,12 +113,10 @@ void main()
 	scanf("%d", &choice);
 	printf("\n");
 
-
 	while (choice != -1)
 	{
 		if (choice == 1)
 		{
-			
 			if (headPtr == NULL)
 			{
 				addAtTheStartList(&headPtr);
@@ -139,10 +132,10 @@ void main()
 
 		else if (choice == 2)
 		{
-				displayList(headPtr);
+			displayList(headPtr);
 
-				//Saves raw data after each menu as user could change/update details
-				saveRawData(headPtr);
+			//Saves raw data after each menu as user could change/update details
+			saveRawData(headPtr);
 		}
 
 		else if (choice == 3)
@@ -156,14 +149,12 @@ void main()
 				printf("The Company %d does not exist in the list\n", searchID);
 			}
 			else {
+#if DEBUG
+				printf("DEBUG - The Company %d is at location %d\n", searchID, resultSearch);
+#endif
 
-				#if DEBUG
-					printf("DEBUG - The Company %d is at location %d\n", searchID, resultSearch);
-				#endif
-					
 				displaySingle(headPtr, resultSearch);
 			}
-
 		}
 
 		else if (choice == 4)
@@ -208,7 +199,6 @@ void main()
 
 			//Saves raw data after each menu as user could change/update details
 			saveRawData(headPtr);
-
 		}
 
 		else if (choice == 6)
@@ -231,11 +221,9 @@ void main()
 
 		else if (choice == 8)
 		{
-
 			displayOrder1(headPtr);
 			displayOrder2(headPtr);
 			displayOrder3(headPtr);
-
 		}
 
 		printf("\nPlease enter 1 to Add client (Note: Company Registeration Number must be unique)\n");
@@ -250,13 +238,11 @@ void main()
 		scanf("%d", &choice);
 		printf("\n");
 	}//End OF while
-
 }//End Of Main
 
 //Add to start of the list
 void addAtTheEndList(struct node* top)
 {
-
 	struct node* temp = top;
 	struct node* newNode;
 
@@ -264,25 +250,25 @@ void addAtTheEndList(struct node* top)
 
 	int checkCRN, checkResult;
 
-	int checkVat = 0, checkTurnover = 0, checkStaff = 0 , checkSales = 0;
+	int checkVat = 0, checkTurnover = 0, checkStaff = 0, checkSales = 0;
 	char checkEmail[30];
 	char validationEmail;
 
 	printf("Please enter Company Registration Number(CRN) to check if it is available:\n");
-	scanf("%d",&checkCRN);
+	scanf("%d", &checkCRN);
 
 	checkResult = search(temp, checkCRN);
 
-	#if DEBUG 
-		printf("\nThis is check result %d end of list-  checkCRN is %d\n", checkResult, checkCRN);
-	#endif
+#if DEBUG
+	printf("\nThis is check result %d end of list-  checkCRN is %d\n", checkResult, checkCRN);
+#endif
 
 	if (checkResult == -1) {
 		newNode = (struct node*)malloc(sizeof(struct node));
 		printf("Company Registration Number(CRN) is available!\n");
 
 		printf("Please enter Company Registration Number(CRN) :\n");
-		scanf("%d", &newNode -> CRN);
+		scanf("%d", &newNode->CRN);
 		printf("Please enter Company Name:\n");
 		scanf("%s", newNode->CoName);
 		printf("Please enter Company Country:\n");
@@ -291,19 +277,17 @@ void addAtTheEndList(struct node* top)
 		scanf("%d", &newNode->yearFounded);
 
 		do {
+			printf("Please enter Company Email Address(Must be valid email!):\n");
+			scanf("%s", checkEmail);
 
-		printf("Please enter Company Email Address(Must be valid email!):\n");
-		scanf("%s", checkEmail);
+			validationEmail = strstr(checkEmail, "@", ".");
 
-		validationEmail = strstr(checkEmail, "@", ".");
-
-		if (validationEmail == NULL) {
-			printf("Please enter in valid email!\n");
-		}
-
+			if (validationEmail == NULL) {
+				printf("Please enter in valid email!\n");
+			}
 		} while (validationEmail == NULL);
 
-		strcpy(newNode->email,checkEmail);
+		strcpy(newNode->email, checkEmail);
 
 		printf("Please enter Company Contact Name:\n");
 		scanf("%s", newNode->ContactName);
@@ -313,7 +297,7 @@ void addAtTheEndList(struct node* top)
 		scanf("%d", &newNode->NumOfEmployees);
 		printf("Please enter Average Annual Order:\n");
 		scanf("%f", &newNode->AverageAnnualOrder);
-		
+
 		do
 		{
 			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
@@ -322,7 +306,6 @@ void addAtTheEndList(struct node* top)
 			{
 				printf("Please enter valid Input!\n");
 			}
-
 		} while (checkVat != 1 && checkVat != 2);
 
 		newNode->VatReg = checkVat;
@@ -335,7 +318,6 @@ void addAtTheEndList(struct node* top)
 			{
 				printf("Please enter valid Input!\n");
 			}
-
 		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
 
 		newNode->AvgTurnover = checkTurnover;
@@ -348,11 +330,9 @@ void addAtTheEndList(struct node* top)
 			{
 				printf("Please enter valid Input!\n");
 			}
-
 		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
 
 		newNode->StaffNum = checkStaff;
-
 
 		do
 		{
@@ -363,11 +343,9 @@ void addAtTheEndList(struct node* top)
 			{
 				printf("Please enter valid Input!\n");
 			}
-
 		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
 
 		newNode->AreaOfSales = checkSales;
-
 
 		while (temp->NEXT != NULL)
 		{
@@ -380,117 +358,105 @@ void addAtTheEndList(struct node* top)
 	else {
 		printf("The Company %d already exits, Please Try again\n", checkCRN);
 	}//End of if else
-
 }//End of addAtEndList
 
 //Add to end the list
 void addAtTheStartList(struct node** top)
 {
+	struct node* newNode;
 
-		struct node* newNode;
+	newNode = (struct node*)malloc(sizeof(struct node));
 
-		newNode = (struct node*)malloc(sizeof(struct node));
+	int checkVat = 0, checkTurnover = 0, checkStaff = 0, checkSales = 0;
+	char checkEmail[30];
+	char validationEmail;
 
-		int checkVat = 0, checkTurnover = 0, checkStaff = 0, checkSales = 0;
-		char checkEmail[30];
-		char validationEmail;
+	printf("Please enter Company Registration Number(CRN) :\n");
+	scanf("%d", &newNode->CRN);
+	printf("Please enter Company Name:\n");
+	scanf("%s", newNode->CoName);
+	printf("Please enter Company Country:\n");
+	scanf("%s", newNode->CoCountry);
+	printf("Please enter Year Company was Founded:\n");
+	scanf("%d", &newNode->yearFounded);
 
-		printf("Please enter Company Registration Number(CRN) :\n");
-		scanf("%d", &newNode->CRN);
-		printf("Please enter Company Name:\n");
-		scanf("%s", newNode->CoName);
-		printf("Please enter Company Country:\n");
-		scanf("%s", newNode->CoCountry);
-		printf("Please enter Year Company was Founded:\n");
-		scanf("%d", &newNode->yearFounded);
+	//Email validation
+	do {
+		printf("Please enter Company Email Address(Must be valid email!):\n");
+		scanf("%s", checkEmail);
 
-		//Email validation
-		do {
+		validationEmail = strstr(checkEmail, "@", ".");
 
-			printf("Please enter Company Email Address(Must be valid email!):\n");
-			scanf("%s", checkEmail);
+		if (validationEmail == NULL) {
+			printf("Please enter in valid email!\n");
+		}
+	} while (validationEmail == NULL);
 
-			validationEmail = strstr(checkEmail, "@", ".");
+	strcpy(newNode->email, checkEmail);
 
-			if (validationEmail == NULL) {
-				printf("Please enter in valid email!\n");
-			}
+	printf("Please enter Company Contact Name:\n");
+	scanf("%s", newNode->ContactName);
+	printf("Please enter Last Order:\n");
+	scanf("%d", &newNode->LastOrder);
+	printf("Please enter Number Of Employees:\n");
+	scanf("%d", &newNode->NumOfEmployees);
+	printf("Please enter Average Annual Order:\n");
+	scanf("%f", &newNode->AverageAnnualOrder);
 
-		} while (validationEmail == NULL);
-
-		strcpy(newNode->email, checkEmail);
-
-
-		printf("Please enter Company Contact Name:\n");
-		scanf("%s", newNode->ContactName);
-		printf("Please enter Last Order:\n");
-		scanf("%d", &newNode->LastOrder);
-		printf("Please enter Number Of Employees:\n");
-		scanf("%d", &newNode->NumOfEmployees);
-		printf("Please enter Average Annual Order:\n");
-		scanf("%f", &newNode->AverageAnnualOrder);
-
-		do
+	do
+	{
+		printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
+		scanf("%d", &checkVat);
+		if (checkVat != 1 && checkVat != 2)
 		{
-			printf("Is the Company Vat Registered?(Please Enter 1 for Yes or 2 for No.):\n");
-			scanf("%d", &checkVat);
-			if (checkVat != 1 && checkVat != 2)
-			{
-				printf("Please enter valid Input!\n");
-			}
+			printf("Please enter valid Input!\n");
+		}
+	} while (checkVat != 1 && checkVat != 2);
 
-		} while (checkVat != 1 && checkVat != 2);
+	newNode->VatReg = checkVat;
 
-		newNode->VatReg = checkVat;
-
-		do
+	do
+	{
+		printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
+		scanf("%d", &checkTurnover);
+		if (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3)
 		{
-			printf("What is the Company's Average Turnover?:\n\t-Please enter 1 For Less than €1 Million\n\t-Please enter 2 for Less than €10 Million\n\t-Please enter 3 for Over €10 Million\n");
-			scanf("%d", &checkTurnover);
-			if (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3)
-			{
-				printf("Please enter valid Input!\n");
-			}
+			printf("Please enter valid Input!\n");
+		}
+	} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
 
-		} while (checkTurnover != 1 && checkTurnover != 2 && checkTurnover != 3);
+	newNode->AvgTurnover = checkTurnover;
 
-		newNode->AvgTurnover = checkTurnover;
-
-		do
+	do
+	{
+		printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
+		scanf("%d", &checkStaff);
+		if (checkStaff != 1 && checkStaff != 2 && checkStaff != 3)
 		{
-			printf("How many staff are employed in the Company?:\n\t-Please enter 1 For Less than 10\n\t-Please enter 2 for Less than 100\n\t-Please enter 3 for Over 100\n");
-			scanf("%d", &checkStaff);
-			if (checkStaff != 1 && checkStaff != 2 && checkStaff != 3)
-			{
-				printf("Please enter valid Input!\n");
-			}
+			printf("Please enter valid Input!\n");
+		}
+	} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
 
-		} while (checkStaff != 1 && checkStaff != 2 && checkStaff != 3);
+	newNode->StaffNum = checkStaff;
 
-		newNode->StaffNum = checkStaff;
+	do
+	{
+		printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
+		scanf("%d", &checkSales);
 
-
-		do
+		if (checkSales != 1 && checkSales != 2 && checkSales != 3)
 		{
-			printf("Which area of sales is the company?:\n\t-Please enter 1 For ICT\n\t-Please enter 2 for Medical Devices\n\t-Please enter 3 for Other area\n");
-			scanf("%d", &checkSales);
+			printf("Please enter valid Input!\n");
+		}
+	} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
 
-			if (checkSales != 1 && checkSales != 2 && checkSales != 3)
-			{
-				printf("Please enter valid Input!\n");
-			}
+	newNode->AreaOfSales = checkSales;
 
-		} while (checkSales != 1 && checkSales != 2 && checkSales != 3);
-
-		newNode->AreaOfSales = checkSales;
-
-
-		newNode->NEXT = *top;
-		*top = newNode;
-	
+	newNode->NEXT = *top;
+	*top = newNode;
 }//End of addAtStartList
 
-//Display entire List 
+//Display entire List
 void displayList(nodeT* top)
 {
 	struct node* temp;
@@ -545,7 +511,6 @@ void displaySingle(nodeT* top, int location)
 	printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
 	printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
 	printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
-
 }//End of displaySingle
 
 //Search if CRN exists in database
@@ -679,7 +644,7 @@ void saveRawData(struct node* top)
 	{
 		if (fp != NULL)
 		{
-			fprintf(fp, "%d %s %s %d %s %s %d %d %.2f %d %d %d %d\n", temp->CRN,temp->CoName,temp->CoCountry,temp->yearFounded,temp->email, temp->ContactName,temp->LastOrder,temp->NumOfEmployees,temp->AverageAnnualOrder,temp->VatReg,temp->AvgTurnover,temp->StaffNum,temp->AreaOfSales);
+			fprintf(fp, "%d %s %s %d %s %s %d %d %.2f %d %d %d %d\n", temp->CRN, temp->CoName, temp->CoCountry, temp->yearFounded, temp->email, temp->ContactName, temp->LastOrder, temp->NumOfEmployees, temp->AverageAnnualOrder, temp->VatReg, temp->AvgTurnover, temp->StaffNum, temp->AreaOfSales);
 		}
 		temp = temp->NEXT;
 	}
@@ -691,7 +656,7 @@ void saveRawData(struct node* top)
 }
 
 //Checks for login details from file and cheks with user input
-int login() 
+int login()
 {
 	FILE* fptr;
 	char userName[10];
@@ -712,14 +677,13 @@ int login()
 	printf("Please enter your username(Username should not exceed 6 Charecters):\n");
 	scanf("%s", userName);
 
-
 	printf("Please enter your password(Password should not exceed 6 Charecters):\n");
 
-	// 13 is ASCII value of * character 
+	// 13 is ASCII value of * character
 	while ((c = getch()) != 13) {
 		if (index < 0)
 			index = 0;
-		// 8 is ASCII value of BACKSPACE character 
+		// 8 is ASCII value of BACKSPACE character
 		if (c == 8) {
 			putch('\b');
 			putch(NULL);
@@ -731,7 +695,6 @@ int login()
 		putch('*');
 	}
 	password[index] = '\0';
-
 
 	fptr = fopen("USERDETAILS.txt", "r");
 
@@ -749,9 +712,9 @@ int login()
 		fclose(fptr);
 	}
 
-	#if DEBUG 
-		 printf("\nDEBUG - %s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
-	#endif
+#if DEBUG
+	printf("\nDEBUG - %s %s %s %s %s %s\n", name1, pass1, name2, pass2, name3, pass3);
+#endif
 
 	//Compares if details from file is same as user
 
@@ -768,16 +731,15 @@ int login()
 	{
 		printf("\nCorrect\n");
 		return 1;
-	}else{
+	}
+	else {
 		printf("\nYou have entered the wrong password or username, Please try again\n");
 		return 0;
 	}
-
 }
 
 //Initilizes first line of data to linked list
 void initilizeStartLinkedList(struct node** top) {
-
 	struct node* newNode;
 	newNode = (struct node*)malloc(sizeof(struct node));
 
@@ -795,14 +757,13 @@ void initilizeStartLinkedList(struct node** top) {
 		fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
 		fclose(fptr);
 	}
-	
+
 	newNode->NEXT = *top;
 	*top = newNode;
 }
 
 //Initilizes all data to linked liost bar first line
 void initilizeEndLinkedList(struct node* top) {
-
 	FILE* fptr;
 
 	fptr = fopen("rawData.txt", "r");
@@ -813,7 +774,6 @@ void initilizeEndLinkedList(struct node* top) {
 		printf("Please check if rawData file is vaild!! - Data has not been initilized\n");
 	}
 	else {
-		
 		while (!feof(fptr))
 		{
 			struct node* temp = top;
@@ -822,7 +782,7 @@ void initilizeEndLinkedList(struct node* top) {
 
 			//Grabs info from file
 			fscanf(fptr, "%d %s %s %d %s %s %d %d %f %d %d %d %d\n", &newNode->CRN, newNode->CoName, newNode->CoCountry, &newNode->yearFounded, newNode->email, newNode->ContactName, &newNode->LastOrder, &newNode->NumOfEmployees, &newNode->AverageAnnualOrder, &newNode->VatReg, &newNode->AvgTurnover, &newNode->StaffNum, &newNode->AreaOfSales);
-			
+
 			while (temp->NEXT != NULL)
 			{
 				temp = temp->NEXT;
@@ -833,14 +793,10 @@ void initilizeEndLinkedList(struct node* top) {
 		}
 		fclose(fptr);
 	}
-
-
-
 }
 
 //Updates existing client info
 void updateClient(struct node* top) {
-
 	struct node* temp = top;
 	int updateID, resultUpdate;
 
@@ -884,7 +840,6 @@ void updateClient(struct node* top) {
 	}
 
 	printf("Client has been updated!\n");
-
 }
 
 //Display clients in AverageTurnOver
@@ -895,25 +850,24 @@ void displayOrder1(struct node* top) {
 
 	while (temp != NULL)
 	{
-		if(temp->AvgTurnover == 1){
-		printf("\nCompany Registration Number(CRN) is: %d\n", temp->CRN);
-		printf("Company Name is %s.\n", temp->CoName);
-		printf("Company's is located in: %s.\n", temp->CoCountry);
-		printf("Year Company was founded in %d.\n", temp->yearFounded);
-		printf("Company Email Address is %s.\n", temp->email);
-		printf("Company Contact Name is %s.\n", temp->ContactName);
-		printf("Company's Last order was %d.\n", temp->LastOrder);
-		printf("Company has %d employees.\n", temp->NumOfEmployees);
-		printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
-		printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
-		printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
-		printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
-		printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
+		if (temp->AvgTurnover == 1) {
+			printf("\nCompany Registration Number(CRN) is: %d\n", temp->CRN);
+			printf("Company Name is %s.\n", temp->CoName);
+			printf("Company's is located in: %s.\n", temp->CoCountry);
+			printf("Year Company was founded in %d.\n", temp->yearFounded);
+			printf("Company Email Address is %s.\n", temp->email);
+			printf("Company Contact Name is %s.\n", temp->ContactName);
+			printf("Company's Last order was %d.\n", temp->LastOrder);
+			printf("Company has %d employees.\n", temp->NumOfEmployees);
+			printf("Company's average annual order is %f\n", temp->AverageAnnualOrder);
+			printf("Is Company Vat Registered (1 == Yes and 2 == No) : %d\n", temp->VatReg);
+			printf("Companys Average Turnover (1 == Less than 1 Million, 2 == Less than 10 Million, 3 == Over 10 Million): %d\n", temp->AvgTurnover);
+			printf("Number of Staff employeed at company is (1 == Less than 10, 2 == Less than 100, 3 == Over 100): %d\n", temp->StaffNum);
+			printf("Area of sales of company is (1 == ICT, 2 == Medical Devices, 3 == Over Area): %d\n", temp->AreaOfSales);
 		}
-		
+
 		temp = temp->NEXT;
 	}
-
 }
 void displayOrder2(struct node* top) {
 	struct node* temp;
@@ -940,7 +894,6 @@ void displayOrder2(struct node* top) {
 
 		temp = temp->NEXT;
 	}
-
 }
 void displayOrder3(struct node* top) {
 	struct node* temp;
@@ -967,12 +920,10 @@ void displayOrder3(struct node* top) {
 
 		temp = temp->NEXT;
 	}
-
 }
 
 //Generating and saving statistics
 void saveStats(struct node* top, int choice) {
-
 	//Sales
 	int lessThen1CountSalesIct = 0;
 	int lessThen10CountSalesIct = 0;
@@ -1009,7 +960,6 @@ void saveStats(struct node* top, int choice) {
 
 		while (temp != NULL)
 		{
-
 			if (temp->AreaOfSales == 1) {
 				if (temp->AvgTurnover == 1) {
 					lessThen1CountSalesIct++;
@@ -1022,26 +972,26 @@ void saveStats(struct node* top, int choice) {
 				}
 			}//end of 1
 			else if (temp->AreaOfSales == 2) {
-					if (temp->AvgTurnover == 1) {
-						lessThen1CountSalesMed++;
-					}
-					else if (temp->AvgTurnover == 2) {
-						lessThen10CountSalesMed++;
-					}
-					else if (temp->AvgTurnover == 3) {
-						over10CountSalesMed++;
-					}
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountSalesMed++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountSalesMed++;
+				}
+				else if (temp->AvgTurnover == 3) {
+					over10CountSalesMed++;
+				}
 			}//end of 2
 			else if (temp->AreaOfSales == 3) {
-					if (temp->AvgTurnover == 1) {
-						lessThen1CountSalesOther++;
-					}
-					else if (temp->AvgTurnover == 2) {
-						lessThen10CountSalesOther++;
-					}
-					else if (temp->AvgTurnover == 3) {
-						over10CountSalesOther++;
-					}
+				if (temp->AvgTurnover == 1) {
+					lessThen1CountSalesOther++;
+				}
+				else if (temp->AvgTurnover == 2) {
+					lessThen10CountSalesOther++;
+				}
+				else if (temp->AvgTurnover == 3) {
+					over10CountSalesOther++;
+				}
 			}//end of 3
 
 			temp = temp->NEXT;
@@ -1084,7 +1034,6 @@ void saveStats(struct node* top, int choice) {
 		{
 			fclose(fp);
 		}
-
 	}//End of if choice 1
 
 	if (choice == 2) {
@@ -1094,7 +1043,6 @@ void saveStats(struct node* top, int choice) {
 
 		while (temp != NULL)
 		{
-
 			if (temp->StaffNum == 1) {
 				if (temp->AvgTurnover == 1) {
 					lessThen1CountStaff1++;
@@ -1107,7 +1055,6 @@ void saveStats(struct node* top, int choice) {
 				}
 			}//end of 1
 			else if (temp->StaffNum == 2) {
-
 				if (temp->AvgTurnover == 1) {
 					lessThen1CountStaffLess100++;
 				}
@@ -1117,10 +1064,8 @@ void saveStats(struct node* top, int choice) {
 				else if (temp->AvgTurnover == 3) {
 					over10CountSalesStaffLess100++;
 				}
-
 			}//end of 2
 			else if (temp->StaffNum == 3) {
-
 				if (temp->AvgTurnover == 1) {
 					lessThen1CountStaffOver100++;
 				}
@@ -1130,81 +1075,74 @@ void saveStats(struct node* top, int choice) {
 				else if (temp->AvgTurnover = 3) {
 					over10CountSalesStaffOver100++;
 				}
-
 			}//end of 3
 
 			temp = temp->NEXT;
 		}//end of while
 
 		printf("Less than 10 staff:\n");
-			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
-			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
-			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
 
 		printf("Less than 100 staff:\n");
-			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
-			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
-			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
 
 		printf("Over 100 staff:\n");
-			printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
-			printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
-			printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+		printf("\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+		printf("\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+		printf("\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
 
-			if (fp != NULL)
-			{				
-				fprintf(fp, "\nLess than 10 staff:\n");
-				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
-				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
-				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
+		if (fp != NULL)
+		{
+			fprintf(fp, "\nLess than 10 staff:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaff1);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaff1);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaff1);
 
-				fprintf(fp, "Less than 100 staff:\n");
-				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
-				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
-				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+			fprintf(fp, "Less than 100 staff:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
 
-				fprintf(fp, "Over 100 staff:\n");
-				fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
-				fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
-				fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
-			}
+			fprintf(fp, "Over 100 staff:\n");
+			fprintf(fp, "\tLess than 1 million Euro: %d\n", lessThen1CountStaffLess100);
+			fprintf(fp, "\tLess than 10 million Euro: %d\n", lessThen10CountStaffLess100);
+			fprintf(fp, "\tOver 10 million Euro: %d\n", over10CountSalesStaffLess100);
+		}
 
-			if (fp != NULL)
-			{
-				fclose(fp);
-			}
-
+		if (fp != NULL)
+		{
+			fclose(fp);
+		}
 	}//End of if choice 1
-
 
 	printf("This information has also been outputed to clientDataBase text file.\n");
 
 	if (choice != 1 && choice != 2) {
 		printf("Please enter valid criteria!");
 	}
-
-
-		
-
 }
 
 //Tried To implement Bubble Sort - could not make it work
 void bubbleSortList(struct node* top) {
-	//Node current will point to head  
+	//Node current will point to head
 	struct node* current = top;
 	struct node* index = NULL;
 	int loc;
-	
+
 	if (top == NULL) {
 		return;
 	}
 	else {
 		while (current != NULL) {
-			//Node index will point to node next to current  
+			//Node index will point to node next to current
 			index = current->NEXT;
 
 			while (index != NULL) {
-				//If current node's data is greater than index's node data, swap the data between them  
+				//If current node's data is greater than index's node data, swap the data between them
 				if (current->AvgTurnover > index->AvgTurnover) {
 					/*loc = current->CRN;
 					loc = current->CoName;
@@ -1219,7 +1157,7 @@ void bubbleSortList(struct node* top) {
 					loc = current->StaffNum;
 					loc = current->AreaOfSales;*/
 					loc = current->AvgTurnover;
-				
+
 					/*current->CRN = index->CRN;
 					current->CoName = index->CoName;
 					current->CoCountry = index->CoCountry;
@@ -1247,7 +1185,6 @@ void bubbleSortList(struct node* top) {
 					index->StaffNum = loc;
 					index->AreaOfSales = loc;*/
 					index->AvgTurnover = loc;
-	
 				}
 				index = index->NEXT;
 			}
